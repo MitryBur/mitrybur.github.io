@@ -1,17 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<script type="text/javascript">
+	var clutch1;
+	var clutch2;
+	var mainForm;
+	onload = function() {
+	  	clutch1 = new Array(2)
+		clutch2 = new Array(2)
+		mainForm = document.forms["clutchparameters"];
+	}
+
+	function calculate(){
+		clutch1[0] = mainForm.elements["IDE06285"].value - mainForm.elements["IDE06292"].value;
+		clutch1[1] = mainForm.elements["IDE06293"].value - mainForm.elements["IDE06287"].value;
+
+		clutch2[0] = mainForm.elements["IDE06288"].value - mainForm.elements["IDE06284"].value;
+		clutch2[1] = mainForm.elements["IDE06283"].value - mainForm.elements["IDE06291"].value;
+
+		var clutch1Test = clutch1[0] >= 2 && clutch1[1] >= 1
+		var clutch2Test = clutch2[0] >= 2 && clutch2[1] >= 1
+
+		if (clutch1Test && clutch2Test)
+			document.getElementById('result').innerHTML = "<p class=\"text-success\">Сцепление в полном порядке</p>"	
+		else if (!(clutch1Test || clutch2Test))
+			document.getElementById('result').innerHTML = "<p class=\"text-danger\">Все плохо с обоими сцеплениями</p>"		
+		else if (!clutch1Test)
+			document.getElementById('result').innerHTML = "<p class=\"text-warning\">Все плохо c первой сцепой (К1)</p>"	
+		else	  
+			document.getElementById('result').innerHTML = "<p class=\"text-warning\">Все плохо c второй сцепой (К2)</p>"	
+
+
+	}
+
+</script>
 <body>
 
 <div class="container-fluid">
-  <h1>DQ200 Clutch test</h1>
-  <p>DQ200</p> 
+  <h1>Проверка состояния сцеплений DQ200 (0CW)</h1>
+  	<form id="clutchparameters">
+
+<div class="row">
+	  <div class="col-md-6">
+	  	<label for="IDE06285"><p class="text-muted">Параметры К1</p></label>
+	  </div>
+	  <div class="col-md-6">
+	  	<label for="IDE06288"><p class="text-muted">Параметры К2</p></label>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-6">
+	  	<div class="form-group">
+	  	<label for="IDE06285">IDE06285</label>
+	    <input type="number" class="form-control" id="IDE06285" placeholder="">
+	    </div>
+	  </div>
+	  <div class="col-md-6">
+	  	<div class="form-group">
+	  	<label for="IDE06288">IDE06288</label>
+	    <input type="number" class="form-control" id="IDE06288" placeholder="">
+	    </div>
+
+	  </div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+		  	<label for="IDE06292">IDE06292</label>
+		    <input type="number" class="form-control" id="IDE06292" placeholder="">
+	    </div>
+
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+		  	<label for="IDE06284">IDE06284</label>
+		    <input type="number" class="form-control" id="IDE06284" placeholder="">
+		    </div>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+		  	<label for="IDE06293">IDE06293</label>
+		    <input type="number" class="form-control" id="IDE06293" placeholder="">
+		    </div>
+
+		</div>
+		<div class="col-md-6">
+			  <div class="form-group">
+	  		<label for="IDE06283">IDE06283</label>
+	    	<input type="number" class="form-control" id="IDE06283" placeholder="">
+	    	</div>
+		
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+			  	<label for="IDE06287">IDE06287</label>
+			    <input type="number" class="form-control" id="IDE06287" placeholder="">
+			</div>
+		</div>
+		<div class="col-md-6">
+		  	<div class="form-group">
+	  			<label for="IDE06291">IDE06291</label>
+	  			<input type="number" class="form-control" id="IDE06291" placeholder="">
+	    	</div>
+		
+		</div>
+	</div>
+	<button class="btn btn-primary" type="button" onclick="calculate()">Рассчитать</button>
+	<label id="result"></label>
+	</form>
+
 </div>
 
 </body>
+
 </html>
